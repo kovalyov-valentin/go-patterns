@@ -4,12 +4,14 @@ import (
 	"fmt"
 )
 
+// Интерфейс субъекта 
 type Subjject interface {
 	Register(ob Observer)
 	Remove(ob Observer)
 	notifyAll()
 }
 
+// Данные о погоде 
 type WeatherData struct {
 	observers   []Observer
 	temperature float32
@@ -22,25 +24,30 @@ func NewWeatherData() WeatherData {
 	return wd 
 }
 
+// Метод регистрации, когда наблюдатель регистрируется, то добавляем его в массив наблюдателей
 func (w *WeatherData) Register(ob Observer) {
 	w.observers = append(w.observers, ob)
 }
 
+// Метод удаления, когда наблюдатель отменяет регистрацию, то удаляем его из массива наблюдателей
 func (w *WeatherData) Remove(ob Observer) {
 	i := search(&w.observers, ob)
 	w.observers = remove(w.observers, i)
 }
 
+// Метод уведомления, оповещает всех наблюдателей о состоянии субъекта
 func (w *WeatherData) notifyAll() {
 	for _, observer := range w.observers {
 		observer.update(w.temperature, w.humidity, w.pressure)
 	}
 }
 
+// Уведомляем наблюдателей, когда получаем обновленные измерения от метеостанции
 func (w *WeatherData) measurementChanged() {
 	w.notifyAll()
 }
 
+// Установленные измерения 
 func (w *WeatherData) SetMeasurements(temperature float32, humidity float32, pressure float32) {
 	w.temperature = temperature
 	w.humidity = humidity 
