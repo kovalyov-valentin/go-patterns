@@ -7,20 +7,24 @@ type beverager interface {
 	GetDescription() string
 }
 
+// Напиток
 type DarkRoast struct {
 	description string
 	cost        float32
 }
 
+// Конструктор
 func NewDarkRoast() beverager {
 	dr := DarkRoast{description: "Dark Roast", cost: 0.99}
 	return &dr
 }
 
+// Возвращает стоимость
 func (dr *DarkRoast) Cost() float32 {
 	return dr.cost
 }
 
+// Возвращает название
 func (dr *DarkRoast) GetDescription() string {
 	return dr.description
 }
