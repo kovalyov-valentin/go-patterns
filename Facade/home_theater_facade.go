@@ -4,6 +4,9 @@ import (
 	"fmt"
 )
 
+// Композиция:
+// Это все компоненты подсистемы,
+// которые будут использвоваться
 type homeTheaterFacade struct {
 	amp *amplifier
 	dvd *dvdPlayer 
@@ -13,6 +16,7 @@ type homeTheaterFacade struct {
 	popper *popcornPopper
 }
 
+// Создание экземпляров всех компонентов подсистемы
 func newHomeTheaterFacade() *homeTheaterFacade {
 	return &homeTheaterFacade{
 		amp: &amplifier{},
@@ -24,6 +28,12 @@ func newHomeTheaterFacade() *homeTheaterFacade {
 	}
 }
 
+// Функция watchMovie() следует той же последовательности,
+// что и раньше, но завершает ее удобным методом
+// который выполняет всю работу.
+// Следует обратить внимание, что для каждой задачи
+// происходит делегирование ответственности
+// соответствующему компоненты в подсистеме.
 func (h *homeTheaterFacade) watchMovie(movie string) {
 	fmt.Println("\nGet ready to watch a movie...")
 	h.popper.on()
@@ -40,6 +50,9 @@ func (h *homeTheaterFacade) watchMovie(movie string) {
 	h.dvd.play(movie)
 }
 
+// endMovie() отвечает за завершение всех задач.
+// Каждая задача делегируется соответствующему 
+// компоненты в подсистеме.
 func (h *homeTheaterFacade) endMovie() {
 	fmt.Println("\nShutting movie theater down...")
 	h.popper.off()
