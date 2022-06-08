@@ -4,6 +4,56 @@ import (
 	"fmt"
 )
 
+type duck interface {
+	quack()
+	fly()
+}
+
+type mallarDuck struct {}
+
+func (m *mallarDuck) quack() {
+	fmt.Println("Quack")
+}
+
+func (m *mallarDuck) fly() {
+	fmt.Println("I'm flying")
+}
+
+type turkey interface {
+	gobble()
+	fly()
+}
+
+type wildTurkey struct{}
+
+func (w *wildTurkey) gobble() {
+	fmt.Println("Gobble Gobble")
+}
+
+func (w *wildTurkey) fly() {
+	fmt.Println("I'm flying a shotr distance")
+}
+
+type turkeyAdapter struct {
+	turkey turkey
+}
+
+func newTurkeyAdapter(t turkey) *turkeyAdapter {
+	return &turkeyAdapter{
+		turkey: t,
+	}
+}
+
+func (t *turkeyAdapter) quack() {
+	t.turkey.gobble()
+}
+
+func (t *turkeyAdapter) fly() {
+	for i := 1; i <=5; i++ {
+		t.turkey.fly()
+	}
+}
+
 func main() {
 	// Создание утки и индейки
 	mallarDuck := &mallarDuck{}
