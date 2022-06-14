@@ -31,7 +31,7 @@ func (w *wildTurkey) gobble() {
 }
 
 func (w *wildTurkey) fly() {
-	fmt.Println("I'm flying a shotr distance")
+	fmt.Println("I'm flying a short distance")
 }
 
 type turkeyAdapter struct {
